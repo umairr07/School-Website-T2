@@ -104,9 +104,9 @@ const Header = () => {
             className="ml-auto mr-10 mt-3 text-blue-600 hover:text-red-500"
             onClick={() => setMenu(false)}
           >
-            <HiX className="text-2xl" />
+            <HiX className="text-2xl text-forText" />
           </button>
-          <div className="flex flex-col gap-3 ml-5 text-blue-600">
+          <div className="flex flex-col gap-6 ml-5 text-blue-600">
             {lists.map((item, idx) => {
               return (
                 <Link
