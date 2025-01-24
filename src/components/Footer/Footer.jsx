@@ -71,7 +71,7 @@ const Footer = () => {
                 <div>
                   <Link
                     to={item.path}
-                    className="cursor-pointer lg:text-[17px] sm:text-[14px] text-forText hover:text-blue-main transition-all duration-300"
+                    className="cursor-pointer lg:text-[17px] sm:text-[12px] text-forText hover:text-blue-main transition-all duration-300"
                   >
                     {item.name}
                   </Link>

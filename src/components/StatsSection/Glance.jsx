@@ -13,7 +13,7 @@ const Glance = () => {
       <h2 className="lg:text-3xl sm:text-xl font-bold mb-16 text-forHeading font-montserrat">
         NextGen Scholars at a Glance
       </h2>
-      <div className="lg:flex lg:flex-row sm:flex sm:flex-col justify-around gap-12">
+      <div className="lg:flex lg:flex-row sm:flex sm:flex-wrap sm:px-10 justify-around gap-12">
         {statsData.map((stat, index) => (
           <div key={index} className="text-center">
             <p className="lg:text-6xl sm:text-3xl font-bold text-blue-main">
