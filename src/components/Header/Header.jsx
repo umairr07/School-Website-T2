@@ -34,7 +34,7 @@ const Header = () => {
       <nav className="fixed top-0 p-4 left-0 w-full bg-white text-blue-600 shadow-lg z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer">
+          <Link to={"/"} className="flex items-center cursor-pointer">
             <img
               src="https://img.freepik.com/premium-vector/education-logo-letter-n-with-graduation-hat-icon-graduation-symbol_754537-7747.jpg"
               alt="Logo"
@@ -44,7 +44,7 @@ const Header = () => {
               <p>NextGen </p>
               <p>Scholars </p>
             </div>
-          </div>
+          </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-10">

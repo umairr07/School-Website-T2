@@ -22,6 +22,9 @@ const StatsSection = () => {
           We aim at inspiring our students to dream more, learn more, do more,
           and become more in their respective journeys of life.
         </p>
+        <p className="text-forHeading text-xl lg:px-32 lg:py-10 sm:py-5 font-montserrat">
+          Jonathan Doe — Headmaster
+        </p>
       </div>
     </div>
   );
