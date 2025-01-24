@@ -61,7 +61,7 @@ const AcademicsSection = () => {
             <h3 className="lg:text-6xl sm:text-3xl mb-6 font-montserrat text-forHeading">
               A Commitment to Excellence
             </h3>
-            <div className="lg:flex justify-around gap-10 space-y-5">
+            <div className="lg:flex justify-around items-center gap-10 py-5">
               <p className="text-base">
                 The NextGen Scholars aims at offering all our students a broad
                 and balanced curriculum that provides rewarding and stimulating
