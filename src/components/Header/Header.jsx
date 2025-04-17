@@ -1,70 +1,66 @@
 import { Link, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiX } from "react-icons/hi";
-
-const lists = [
-  {
-    name: "Home",
-    path: "/",
-  },
-  {
-    name: "Academics",
-    path: "/academics",
-  },
-  {
-    name: "Activities",
-    path: "/activities",
-  },
-  {
-    name: "About Us",
-    path: "/about",
-  },
-  {
-    name: "Contact Us",
-    path: "/contact",
-  },
-];
+import { useDispatch, useSelector } from "react-redux";
+import { setError, setHeaders, setLoading } from "../../Redux/Slice/slice";
 
 const Header = () => {
   const [menu, setMenu] = useState(false);
   const location = useLocation();
+  const dispatch = useDispatch();
+  const { headers, loading, error } = useSelector((state) => state.header);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(setLoading());
+      try {
+        const response = await fetch(
+          "http://localhost:8000/api/v1/header/get-all-headers"
+        );
+        const data = await response.json();
+        dispatch(setHeaders(data));
+        console.log(data);
+      } catch (err) {
+        dispatch(setError(err.message));
+      }
+    };
+
+    fetchData();
+  }, [dispatch]);
+
+  const headerData = headers?.data?.[0];
 
   return (
     <>
       <nav className="fixed top-0 p-4 left-0 w-full bg-white text-blue-600 shadow-lg z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to={"/"} className="flex items-center cursor-pointer">
+          {/* Logo from API */}
+          <Link to="/" className="flex items-center cursor-pointer">
             <img
-              src="https://img.freepik.com/premium-vector/education-logo-letter-n-with-graduation-hat-icon-graduation-symbol_754537-7747.jpg"
-              alt="Logo"
+              src={headerData?.logo?.url}
+              alt={headerData?.logo?.altText || "Logo"}
               className="w-16"
             />
-            <div className="text-sm font-bold text-blue-main ">
-              <p>NextGen </p>
-              <p>Scholars </p>
+            <div className="text-sm font-bold text-blue-main">
+              <p>{headerData?.name || "School Name"}</p>
             </div>
           </Link>
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-10">
-            {lists.map((item, idx) => {
-              return location.pathname === item.path ? (
-                <Link
-                  to={item.path}
-                  className="cursor-pointer lg:text-[17px] md:text-[15px] text-blue-main transition-all duration-300"
-                >
-                  {item.name}
-                </Link>
-              ) : (
-                <Link
-                  to={item.path}
-                  className="cursor-pointer lg:text-[17px] md:text-[15px] hover:text-blue-main transition-all duration-300 "
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+            {headerData?.navigation?.map((item) => (
+              <Link
+                key={item._id}
+                to={item.link}
+                className={`cursor-pointer lg:text-[17px] md:text-[15px] transition-all duration-300 ${
+                  location.pathname === item.link
+                    ? "text-blue-main"
+                    : "hover:text-blue-main"
+                }`}
+              >
+                {item.title}
+              </Link>
+            ))}
           </div>
 
           {/* Mobile Menu Button */}
@@ -107,18 +103,16 @@ const Header = () => {
             <HiX className="text-2xl text-forText" />
           </button>
           <div className="flex flex-col gap-6 ml-5 text-blue-600">
-            {lists.map((item, idx) => {
-              return (
-                <Link
-                  key={idx}
-                  to={item.path}
-                  onClick={() => setMenu(false)}
-                  className="hover:underline"
-                >
-                  {item.name}
-                </Link>
-              );
-            })}
+            {headerData?.navigation?.map((item) => (
+              <Link
+                key={item._id}
+                to={item.link}
+                onClick={() => setMenu(false)}
+                className="hover:underline"
+              >
+                {item.title}
+              </Link>
+            ))}
           </div>
         </div>
       )}
